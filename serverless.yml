@@ -15,7 +15,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: prod
+  stage: dev
   region: us-east-1
 
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
@@ -34,7 +34,7 @@ provider:
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
-  # - path: url path is /notes
+  # - path: url path is /teams
   # - method: POST request
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
@@ -47,3 +47,41 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+  get:
+  # Defines an HTTP API endpoint that calls the main function in get.js
+  # - path: url path is /teams/{id}
+  # - method: GET request
+    handler: get.main
+    events:
+      - http:
+          path: teams/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+  update:
+    # Defines an HTTP API endpoint that calls the main function in update.js
+    # - path: url path is /teams/{id}
+    # - method: PUT request
+    handler: update.main
+    events:
+      - http:
+          path: teams/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+  delete:
+    # Defines an HTTP API endpoint that calls the main function in delete.js
+    # - path: url path is /teams/{id}
+    # - method: DELETE request
+    handler: delete.main
+    events:
+      - http:
+          path: teams/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}

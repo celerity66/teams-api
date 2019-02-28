@@ -1,5 +1,7 @@
 {
-    "body": "{\"teamName\":\"testTeam05\",\"seasonId\":\"testSeason01\"}",
+    "pathParameters": {
+      "id": "e8cb2420-3af0-11e9-83dc-371804712e35"
+    },
     "requestContext": {
       "identity": {
         "cognitoIdentityId": "USER-SUB-1234"
