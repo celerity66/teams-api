@@ -80,6 +80,18 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+  list:
+    # Defines an HTTP API endpoint that calls the main function in list.js
+    # - path: url path is /notes
+    # - method: GET request
+    handler: list.main
+    events:
+      - http:
+          path: teams
+          method: get
+          cors: true
+          authorizer: aws_iam
+
 
 # Create our resources with separate CloudFormation templates
 resources:
